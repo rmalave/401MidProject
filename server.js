@@ -20,14 +20,3 @@ app.use(bodyParser.json());
 app.listen(PORT, () => {
   console.log('Tuning in to port ' + PORT);
 });
-
-// MongoClient.connect(db.url, (err, database) => {
-//   if (err) return console.log(err)
-
-//   db = database.db("starshipmanager");
-//   require('./app/routes') (app, db);
-  
-//   app.listen(port, () => {
-//     console.log('Server is live on port ' + port);
-//   });
-// })
