@@ -1,5 +1,9 @@
-const shipsRoutes = require('./ships_routes');
+const express = require('express');
+const router = express.Router();
 
-module.exports = function(app, db) {
-  shipsRoutes(app, db);
-};
+router.route('/')
+  .get((req, res) => {
+    res.send('hello');
+  });
+
+module.exports = router;
