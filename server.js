@@ -9,6 +9,7 @@ const db = require('./config/db');
 const mongoose = require('mongoose');
 const indexRouter = require('./app/routes/index');
 const shipRouter = require('./app/routes/ships_routes');
+const userRouter = require('./app/routes/user');
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(bodyParser.json());
 
 app.use('/api', indexRouter);
 app.use('/api', shipRouter);
+app.use('/api', userRouter);
 
 const PORT = process.env.PORT
 
