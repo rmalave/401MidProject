@@ -1,11 +1,9 @@
-'use strict'
+'use strict';
 
 require('dotenv').config();
 
 const express = require('express');
-const mongodb = require('mongodb');
 const bodyParser = require('body-parser');
-const db = require('./config/db');
 const mongoose = require('mongoose');
 const indexRouter = require('./app/routes/index');
 const shipRouter = require('./app/routes/ships_routes');
@@ -22,7 +20,7 @@ app.use('/api', indexRouter);
 app.use('/api', shipRouter);
 app.use('/api', userRouter);
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
   console.log('Tuning in to port ' + PORT);
