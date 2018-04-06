@@ -48,8 +48,6 @@ router.route('/signin').get((req, res) => {
         let payload = { userId: user._id };
         let token = jwt.sign(payload, process.env.APP_SECRET);
 
-        console.log('token from signin:', token);
-
         res.send({ success: true, token: token });
       });
     })
