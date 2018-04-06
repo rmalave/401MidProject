@@ -4,7 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.js"
+    "start:watch": "nodemon server.js",
+    "start": "node server.js",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +23,7 @@
     "parser": "^0.1.4"
   },
   "devDependencies": {
+    "btoa": "^1.2.1",
     "jest": "^22.4.3",
     "superagent": "^3.8.2"
   }
