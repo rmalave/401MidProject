@@ -1,0 +1,12 @@
+language: node_js
+node_js:
+  - 'stable'
+services:
+  - mongodb
+before_script: npm i
+env:
+  PORT: 3000
+  MONGODB_URI: mongodb://localhost/whatever
+script:
+  - node server.js &
+  - npm test

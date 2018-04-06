@@ -19,7 +19,7 @@ router
       .then(user => {
         res.json(user);
       })
-      .catch(err => res.send(err.message));
+      .catch(err => res.status(400).send(err.message));
   });
 
 router.route('/signin').get((req, res) => {
