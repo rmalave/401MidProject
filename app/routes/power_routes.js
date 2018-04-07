@@ -6,6 +6,7 @@ const bearerMiddleware = require('../lib/bearerMiddleware');
 const Ship = require('../models/ship');
 const Power = require('../models/power');
 
+
 router.route('/power')
   .get(bearerMiddleware, (req, res) => {
     Power.find()
