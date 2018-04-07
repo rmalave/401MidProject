@@ -19,7 +19,7 @@ router
       .then(user => {
         res.json(user);
       })
-      .catch(err => res.send(err.message));
+      .catch(err => res.status(400).send(err.message));
   });
 
 router.route('/signin').get((req, res) => {
@@ -47,8 +47,6 @@ router.route('/signin').get((req, res) => {
 
         let payload = { userId: user._id };
         let token = jwt.sign(payload, process.env.APP_SECRET);
-
-        console.log('token from signin:', token);
 
         res.send({ success: true, token: token });
       });
