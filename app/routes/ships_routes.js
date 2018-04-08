@@ -9,6 +9,7 @@ router.route('/ships')
   .get(bearerMiddleware, (req, res) => {
     Ship.find()
       .populate('crew')
+      .populate('engine')
       .then(ships => res.json(ships))
       .catch(err => res.send(err.message));
   })
