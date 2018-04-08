@@ -3,22 +3,25 @@
 const express = require('express');
 const router = express.Router();
 const bearerMiddleware = require('../lib/bearerMiddleware');
+const Crew = require('../models/crew');
 const Ship = require('../models/ship');
-const Power = require('../models/power');
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 14feac5bbb091f407fce6bf558bf28cb7e1a8b03
-router.route('/power')
+router.route('/crew')
   .get(bearerMiddleware, (req, res) => {
-    Power.find()
-      .then(power => res.json(power))
+    Crew.find()
+      .then(crew => res.json(crew))
       .catch(err => res.send(err.message));
   })
   .post(bearerMiddleware, (req, res) => {
-    Power.create(req.body)
-      .then(power => res.json(power))
+    Crew.create(req.body)
+      .then(crew => {
+        Ship.findByIdAndUpdate(
+          crew.ship,
+          { $push: { crew: crew._id } },
+          { new: true })
+          .catch(err => res.send(err.message));
+        res.json(crew);
+      })
       .catch(err => res.send(err.message));
   });
 
