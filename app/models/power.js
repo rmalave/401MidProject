@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 
 const powerSchema = mongoose.Schema({
-  battery: {type: String, require: true},
-  engineLevel: {type: String, require: true},
+  ship: {type: mongoose.Schema.Types.ObjectId, ref: 'Power'},
+  battery: {type: Number, min: 0, max: 100, require: true},
+  engineLevel: {type: Number, min: 0, max: 100, require: true},
 })
 const Power = mongoose.model('Power', powerSchema);
 
