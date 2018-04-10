@@ -26,4 +26,25 @@ router.route('/power')
       .catch(err => res.send(err.message));
   });
 
+router.route('/power/:_id')
+  .get((req, res) => {
+    Power.findOneById(req.params._id)
+      .then(power => res.json(power))
+      .catch(err => res.send(err.message));
+  })
+  .put((req, res) => {
+    Power.findByIdAndUpdate(req.params._id, req.body, { new: true })
+      .then(power => res.json({
+        success: true,
+        message: 'Successfuly updated power'
+      }));
+  })
+  .delete((req, res) => {
+    Power.findByIdAndRemove(req.params._id)
+      .then(power => res.json({
+        success: true,
+        message: 'Successfuly deleted power'
+      }));
+  });
+
 module.exports = router;

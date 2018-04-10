@@ -29,7 +29,10 @@ router.route('/ship/:_id')
   })
   .put((req, res) => {
     Ship.findByIdAndUpdate(req.params._id, req.body, { new: true })
-      .then(ship => res.json(ship))
+      .then(ship => res.json({
+        success: true,
+        data: ship
+      }))
       .catch(err => res.send(err.message));
   })
   .delete((req, res) => {
