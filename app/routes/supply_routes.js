@@ -4,7 +4,6 @@ const express = require('express');
 const router = express.Router();
 const bearerMiddleware = require('../lib/bearerMiddleware');
 const Ship = require('../models/ship');
-const Power = require('../models/power');
 const Supply = require('../models/supply');
 
 router.route('/supply')
@@ -24,6 +23,29 @@ router.route('/supply')
 
         res.json(supply);
       })
+      .catch(err => res.send(err.message));
+  });
+
+router.route('/supply/:_id')
+  .get((req, res) => {
+    Supply.findOneById(req.params._id)
+      .then(supply => res.json(supply))
+      .catch(err => res.send(err.message));
+  })
+  .put((req, res) => {
+    Supply.findByIdAndUpdate(req.params._id, req.body, { new: true })
+      .then(supply => res.json({
+        success: true,
+        data: supply
+      }))
+      .catch(err => res.send(err.mesage));
+  })
+  .delete((req, res) => {
+    Supply.findByIdAndRemove(req.params._id)
+      .then(supply => res.json({
+        success: true,
+        message: 'Successfuly deleted supply '
+      }))
       .catch(err => res.send(err.message));
   });
 
