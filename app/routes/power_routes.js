@@ -21,7 +21,15 @@ router.route('/power')
   })
   .post(bearerMiddleware, (req, res) => {
     Power.create(req.body)
-      .then(power => res.json(power))
+      .then(power => {
+        Ship.findByIdAndUpdate(
+          power.ship,
+          { $push: { engine: power._id }},
+          { new: true })
+          .catch(err => res.send(err.message));
+
+        res.json(power);
+      })
       .catch(err => res.send(err.message));
   });
 

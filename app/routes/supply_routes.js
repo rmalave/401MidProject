@@ -15,7 +15,15 @@ router.route('/supply')
   })
   .post(bearerMiddleware, (req, res) => {
     Supply.create(req.body)
-      .then(supply => res.json(supply))
+      .then(supply => {
+        Ship.findByIdAndUpdate(
+          supply.ship,
+          { $push: { supply: supply._id }},
+          { new: true })
+          .catch(err => res.send(err.message));
+
+        res.json(supply);
+      })
       .catch(err => res.send(err.message));
   });
 
