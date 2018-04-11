@@ -27,19 +27,19 @@ router.route('/power')
   });
 
 router.route('/power/:_id')
-  .get((req, res) => {
+  .get(bearerMiddleware, (req, res) => {
     Power.findOneById(req.params._id)
       .then(power => res.json(power))
       .catch(err => res.send(err.message));
   })
-  .put((req, res) => {
+  .put(bearerMiddleware, (req, res) => {
     Power.findByIdAndUpdate(req.params._id, req.body, { new: true })
       .then(power => res.json({
         success: true,
         message: 'Successfuly updated power'
       }));
   })
-  .delete((req, res) => {
+  .delete(bearerMiddleware, (req, res) => {
     Power.findByIdAndRemove(req.params._id)
       .then(power => res.json({
         success: true,

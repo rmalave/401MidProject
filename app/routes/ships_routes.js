@@ -27,7 +27,7 @@ router.route('/ship/:_id')
       .then(ship => res.json(ship))
       .catch(err => res.send(err.message));
   })
-  .put((req, res) => {
+  .put(bearerMiddleware, (req, res) => {
     Ship.findByIdAndUpdate(req.params._id, req.body, { new: true })
       .then(ship => res.json({
         success: true,
@@ -35,7 +35,7 @@ router.route('/ship/:_id')
       }))
       .catch(err => res.send(err.message));
   })
-  .delete((req, res) => {
+  .delete(bearerMiddleware, (req, res) => {
     Ship.findByIdAndRemove(req.params._id)
       .then(ship => res.json({ success: true, message: 'Ship successfuly deleted.'}))
       .catch(err => res.send(err.message));
