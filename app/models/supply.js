@@ -5,7 +5,7 @@ const supplySchema = mongoose.Schema({
   ammunition: {type: Number, min: 0, max: 100, require: true},
   food: {type: Number, min: 0, max: 100, require: true},
   fuel: {type: Number, min: 0, max: 100, require: true}
-})
+});
 const Supply = mongoose.model('Supply', supplySchema);
 
 module.exports = Supply;
