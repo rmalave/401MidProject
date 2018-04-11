@@ -27,12 +27,12 @@ router.route('/crew')
   });
 
 router.route('/crew/:_id')
-  .get((req, res) => {
+  .get(bearerMiddleware, (req, res) => {
     Crew.findOneById(req.params._id)
       .then(crew => res.json(crew))
       .catch(err => err.send(err.message));
   })
-  .post((req, res) => {
+  .post(bearerMiddleware, (req, res) => {
     Crew.findByIdAndUpdate(req.params._id, req.body, { new: true })
       .then(crew => res.json({
         success: true,
@@ -40,7 +40,7 @@ router.route('/crew/:_id')
       }))
       .catch(err => res.send(err.message));
   })
-  .delete((req, res) => {
+  .delete(bearerMiddleware, (req, res) => {
     Crew.findByIdAndRemove(req.params._id)
       .then(crew => res.json({
         success: true,

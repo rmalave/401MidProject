@@ -27,12 +27,12 @@ router.route('/supply')
   });
 
 router.route('/supply/:_id')
-  .get((req, res) => {
+  .get(bearerMiddleware, (req, res) => {
     Supply.findOneById(req.params._id)
       .then(supply => res.json(supply))
       .catch(err => res.send(err.message));
   })
-  .put((req, res) => {
+  .put(bearerMiddleware, (req, res) => {
     Supply.findByIdAndUpdate(req.params._id, req.body, { new: true })
       .then(supply => res.json({
         success: true,
