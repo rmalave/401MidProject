@@ -14,6 +14,8 @@ function getUserParams() {
   };
 }
 
+jest.setTimeout(10000);
+
 describe('Test ship routes', () => {
   beforeAll(server.start);
   afterAll(server.stop);

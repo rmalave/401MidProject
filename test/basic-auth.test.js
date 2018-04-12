@@ -15,10 +15,12 @@ function getUserParams() {
   };
 }
 
+jest.setTimeout(10000);
+
 describe('Test basic auth', () => {
   beforeAll(server.start);
   afterAll(server.stop);
-  
+
   describe('/api/users', () => {
     it('should return status 400 if missing username', done => {
       let params = getUserParams();
