@@ -43,6 +43,7 @@ router.route('/signin').get((req, res) => {
 
         if (!isValid) {
           res.status(401).send('wrong password');
+          return;
         }
 
         let payload = { userId: user._id };

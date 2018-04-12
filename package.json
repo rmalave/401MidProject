@@ -2,7 +2,7 @@
   "name": "401MidProject",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "start:watch": "nodemon server.js",
     "start": "node server.js",

@@ -13,7 +13,7 @@ const engineRouter = require('./app/routes/engine');
 
 const app = express();
 
-mongoose.connect(process.env.MONGODB_URI);
+const MONGODB_URI = process.env.MONGODB_URI;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -26,6 +26,31 @@ app.use('/api', engineRouter);
 
 const PORT = process.env.PORT;
 
-app.listen(PORT, () => {
-  console.log('Tuning in to port ' + PORT);
-});
+const server = (module.exports = {});
+
+server.isOn = false;
+
+server.start = () => {
+  return new Promise((resolve, reject) => {
+    if (server.isOn)
+      return reject(new Error('Server Error. Server already running.'));
+    server.http = app.listen(PORT, () => {
+      console.log(`Listening on ${PORT}`);
+      server.isOn = true;
+      mongoose.connect(MONGODB_URI);
+      return resolve(server);
+    });
+  });
+};
+
+server.stop = () => {
+  return new Promise((resolve, reject) => {
+    if (!server.isOn)
+      return reject(new Error('Server Error. Server already stopped.'));
+    server.http.close(() => {
+      server.isOn = false;
+      mongoose.disconnect();
+      return resolve();
+    });
+  });
+};

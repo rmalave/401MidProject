@@ -12,8 +12,6 @@ module.exports = (req, res, next) => {
   }
 
   let token = authHeader.split('Bearer ')[1];
-  console.log('jwt Header', authHeader);
-  console.log('jwt token:', token);
 
   if (!token) {
     res.send('invalid token');
@@ -21,13 +19,11 @@ module.exports = (req, res, next) => {
   }
 
   jwt.verify(token, process.env.APP_SECRET, (err, decoded) => {
-    console.log(decoded);
 
     if (err) res.send(err.message);
 
     User.findOne({ _id: decoded.userId })
       .then(user => {
-        console.log(user);
         req.user = user;
         next();
       })
