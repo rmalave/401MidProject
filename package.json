@@ -6,7 +6,7 @@
   "scripts": {
     "start:watch": "nodemon index.js",
     "start": "node index.js",
-    "test": "jest --runInBand"
+    "test": "jest --runInBand --maxWorkers=4"
   },
   "keywords": [],
   "author": "",
