@@ -14,7 +14,8 @@ function getUserParams() {
   };
 }
 
-jest.setTimeout(50000);
+jest.setTimeout(10000);
+
 describe('Test crew routes', () => {
   beforeAll(server.start);
   afterAll(server.stop);

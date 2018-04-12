@@ -15,7 +15,7 @@ function getUserParams() {
   };
 }
 
-jest.setTimeout(50000);
+jest.setTimeout(10000);
 
 describe('Test basic auth', () => {
   beforeAll(server.start);
