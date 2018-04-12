@@ -8,5 +8,5 @@ env:
   PORT: 3000
   MONGODB_URI: mongodb://localhost/whatever
 script:
-  - node server.js &
+  - node index.js &
   - npm test
