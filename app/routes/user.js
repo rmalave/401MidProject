@@ -43,10 +43,12 @@ router.route('/signin').get((req, res) => {
 
         if (!isValid) {
           res.status(401).send('wrong password');
+          return;
         }
 
         let payload = { userId: user._id };
-        let token = jwt.sign(payload, process.env.APP_SECRET);
+        let secret = process.env.APP_SECRET;
+        let token = jwt.sign(payload, secret);
 
         res.send({ success: true, token: token });
       });

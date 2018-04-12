@@ -32,7 +32,7 @@ router.route('/crew/:_id')
       .then(crew => res.json(crew))
       .catch(err => err.send(err.message));
   })
-  .post(bearerMiddleware, (req, res) => {
+  .put(bearerMiddleware, (req, res) => {
     Crew.findByIdAndUpdate(req.params._id, req.body, { new: true })
       .then(crew => res.json({
         success: true,

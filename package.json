@@ -2,11 +2,11 @@
   "name": "401MidProject",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "start:watch": "nodemon server.js",
-    "start": "node server.js",
-    "test": "jest"
+    "start:watch": "nodemon index.js",
+    "start": "node index.js",
+    "test": "jest --runInBand"
   },
   "keywords": [],
   "author": "",

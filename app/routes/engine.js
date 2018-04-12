@@ -33,7 +33,7 @@ router.route('/engine/:_id')
       .catch(err => res.send(err.message));
   })
   .put(bearerMiddleware, (req, res) => {
-    Engine.findOneAndUpdate({ _id: req.params._id })
+    Engine.findByIdAndUpdate(req.params._id, req.body, { new: true})
       .then(engine => res.json({
         success: true,
         data: engine
