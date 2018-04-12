@@ -72,7 +72,6 @@ describe('Test crew routes', () => {
               };
 
               let token = res.body.token;
-              console.log(token);
 
               superagent
                 .post(SERVER_URL + '/api/crew')
