@@ -28,7 +28,7 @@ router.route('/supply')
 
 router.route('/supply/:_id')
   .get(bearerMiddleware, (req, res) => {
-    Supply.findOneById(req.params._id)
+    Supply.findById(req.params._id)
       .then(supply => res.json(supply))
       .catch(err => res.send(err.message));
   })
@@ -40,7 +40,7 @@ router.route('/supply/:_id')
       }))
       .catch(err => res.send(err.mesage));
   })
-  .delete((req, res) => {
+  .delete(bearerMiddleware, (req, res) => {
     Supply.findByIdAndRemove(req.params._id)
       .then(supply => res.json({
         success: true,

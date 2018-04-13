@@ -16,14 +16,14 @@ function getUserParams() {
 
 jest.setTimeout(20000);
 
-describe('Test crew routes', () => {
+describe('Test engine routes', () => {
   beforeAll(server.start);
   afterAll(server.stop);
 
   describe('Handle token less requests', () => {
     test(`sends 401 for GET requests if no token was provided`, done => {
       superagent
-        .get(SERVER_URL + '/api/crew').catch(err => {
+        .get(SERVER_URL + '/api/engines').catch(err => {
           if (err) {
             expect(err.status).toBe(401);
             done();
@@ -32,14 +32,15 @@ describe('Test crew routes', () => {
     });
 
     test('sends 401 for POST requests if no token was provided', done => {
-      let newCrew = {
-        name: 'crew member'
+      let newEngine = {
+        ftl: true,
+        stl: true
       }
 
       superagent
-        .post(SERVER_URL + '/api/crew')
+        .post(SERVER_URL + '/api/engines')
         .set('Content-Type', 'application/json')
-        .send(newCrew)
+        .send(newEngine)
         .end((err, res) => {
           if (err) {
             expect(res.status).toBe(401);
@@ -50,7 +51,7 @@ describe('Test crew routes', () => {
 
     test('sends 401 for PUT requests if no token was provided', done => {
       let newUser = getUserParams();
-      let crewId;
+      let engineId;
       let userId;
 
       superagent
@@ -68,31 +69,31 @@ describe('Test crew routes', () => {
             .end((err, res) => {
               if (err) throw err;
 
-              let newCrew = {
-                name: 'I am a new crew member!',
-                title: 'officer'
+              let newEngine = {
+                ftl: true,
+                stl: true
               };
 
               let token = res.body.token;
 
               superagent
-                .post(SERVER_URL + '/api/crew')
+                .post(SERVER_URL + '/api/engines')
                 .set('Content-Type', 'application/json')
                 .set('Authorization', 'Bearer ' + token)
-                .send(JSON.stringify(newCrew))
+                .send(JSON.stringify(newEngine))
                 .end((err, res) => {
                   if (err) throw err;
 
-                  let crewId = res.body._id;
-                  let updatedCrew = {
-                    name: 'New name!',
-                    title: 'officer'
+                  let engineId = res.body._id;
+                  let updatedEngine = {
+                    ftl: true,
+                    stl: true
                   }
 
                   superagent
-                    .put(SERVER_URL + '/api/crew/' + crewId)
+                    .put(SERVER_URL + '/api/engine/' + engineId)
                     .set('Content-Type', 'application/json')
-                    .send(updatedCrew)
+                    .send(updatedEngine)
                     .end((err, res) => {
                       if (err) {
                         expect(res.status).toBe(401);
@@ -131,7 +132,7 @@ describe('Test crew routes', () => {
               token = res.body.token;
 
               superagent
-                .get(SERVER_URL + '/api/crew')
+                .get(SERVER_URL + '/api/engines')
                 .set('Content-Type', 'application/json')
                 .set('Authorization', 'Bearer ' + token)
                 .end((err, res) => {
@@ -165,7 +166,7 @@ describe('Test crew routes', () => {
             .end((err, res) => {
               if (err) throw err;
 
-              let newCrew = {
+              let newEngine = {
                 ftl: true,
                 stl: true
               };
@@ -173,17 +174,17 @@ describe('Test crew routes', () => {
               token = res.body.token;
 
               superagent
-                .post(SERVER_URL + '/api/crew')
+                .post(SERVER_URL + '/api/engines')
                 .set('Content-Type', 'application/json')
                 .set('Authorization', 'Bearer ' + token)
-                .send(JSON.stringify(newCrew))
+                .send(JSON.stringify(newEngine))
                 .end((err, res) => {
                   if (err) throw err;
 
-                  let crewId = res.body._id;
+                  let engineId = res.body._id;
 
                   superagent
-                    .get(SERVER_URL + '/api/engine/' + crewId)
+                    .get(SERVER_URL + '/api/engine/' + engineId)
                     .set('Authorization', 'Bearer ' + token)
                     .end((err, res) => {
                       if (err) console.log(err.message);
@@ -217,7 +218,7 @@ describe('Test crew routes', () => {
             .end((err, res) => {
               if (err) throw err;
 
-              let newCrew = {
+              let newEngine = {
                 ftl: true,
                 stl: true
               };
@@ -225,23 +226,24 @@ describe('Test crew routes', () => {
               token = res.body.token;
 
               superagent
-                .post(SERVER_URL + '/api/crew')
+                .post(SERVER_URL + '/api/engines')
                 .set('Content-Type', 'application/json')
                 .set('Authorization', 'Bearer ' + token)
-                .send(JSON.stringify(newCrew))
+                .send(JSON.stringify(newEngine))
                 .end((err, res) => {
                   if (err) throw err;
 
-                  let crewId = res.body._id;
-                  let updatedCrew = {
-                    name: 'new name' + Math.random()
+                  let engineId = res.body._id;
+                  let updatedEngine = {
+                    ftl: true,
+                    stl: true
                   }
 
                   superagent
-                    .put(SERVER_URL + '/api/crew/' + crewId)
+                    .put(SERVER_URL + '/api/engine/' + engineId)
                     .set('Content-Type', 'application/json')
                     .set('Authorization', 'Bearer ' + token)
-                    .send(updatedCrew)
+                    .send(updatedEngine)
                     .end((err, res) => {
                       if (err) console.log(err);
                       expect(res.status).toBe(200);
@@ -274,7 +276,7 @@ describe('Test crew routes', () => {
             .end((err, res) => {
               if (err) throw err;
 
-              let newCrew = {
+              let newEngine = {
                 ftl: true,
                 stl: true
               };
@@ -282,16 +284,16 @@ describe('Test crew routes', () => {
               token = res.body.token;
 
               superagent
-                .post(SERVER_URL + '/api/crew')
+                .post(SERVER_URL + '/api/engines')
                 .set('Content-Type', 'application/json')
                 .set('Authorization', 'Bearer ' + token)
-                .send(JSON.stringify(newCrew))
+                .send(JSON.stringify(newEngine))
                 .end((err, res) => {
                   if (err) throw err;
 
-                  let crewId = res.body._id;
+                  let engineId = res.body._id;
                   superagent
-                    .delete(SERVER_URL + '/api/engine/' + crewId)
+                    .delete(SERVER_URL + '/api/engine/' + engineId)
                     .set('Content-Type', 'application/json')
                     .set('Authorization', 'Bearer ' + token)
                     .end((err, res) => {
@@ -303,7 +305,7 @@ describe('Test crew routes', () => {
             });
         });
     });
-
+    
     test('sends 200 for a post request with a valid authorization and body', done => {
       let newUser = getUserParams();
       let userId;
@@ -326,7 +328,7 @@ describe('Test crew routes', () => {
             .end((err, res) => {
               if (err) throw err;
 
-              let newCrew = {
+              let newEngine = {
                 ftl: true,
                 stl: true
               };
@@ -334,10 +336,10 @@ describe('Test crew routes', () => {
               token = res.body.token;
 
               superagent
-                .post(SERVER_URL + '/api/crew')
+                .post(SERVER_URL + '/api/engines')
                 .set('Content-Type', 'application/json')
                 .set('Authorization', 'Bearer ' + token)
-                .send(JSON.stringify(newCrew))
+                .send(JSON.stringify(newEngine))
                 .end((err, res) => {
                   if (err) throw err;
                   expect(res.status).toBe(200);
