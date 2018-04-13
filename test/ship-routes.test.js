@@ -74,6 +74,206 @@ describe('Test ship routes', () => {
   });
 
   describe('Handle valid authorization', () => {
+    test('sends 200 for a get request with valid authorization', done => {
+      let newUser = getUserParams();
+      let userId;
+      let token;
+
+      superagent
+        .post(SERVER_URL + '/api/users')
+        .set('Content-Type', 'application/json')
+        .auth(newUser.username, newUser.password)
+        .send(JSON.stringify(newUser))
+        .end((err, res) => {
+          if (err) throw err;
+
+          userId = res.body._id;
+
+          superagent
+            .get(SERVER_URL + '/api/signin')
+            .set('Content-Type', 'application/json')
+            .auth(newUser.username, newUser.password)
+            .end((err, res) => {
+              if (err) throw err;
+
+              token = res.body.token;
+
+              superagent
+                .get(SERVER_URL + '/api/ships')
+                .set('Content-Type', 'application/json')
+                .set('Authorization', 'Bearer ' + token)
+                .end((err, res) => {
+                  if (err) throw err;
+                  expect(res.status).toBe(200);
+                  done();
+                });
+            });
+        });
+    });
+
+    test('sends 200 for a get request for one item with valid authorization', done => {
+      let newUser = getUserParams();
+      let userId;
+      let token;
+
+      superagent
+        .post(SERVER_URL + '/api/users')
+        .set('Content-Type', 'application/json')
+        .auth(newUser.username, newUser.password)
+        .send(JSON.stringify(newUser))
+        .end((err, res) => {
+          if (err) throw err;
+
+          userId = res.body._id;
+
+          superagent
+            .get(SERVER_URL + '/api/signin')
+            .set('Content-Type', 'application/json')
+            .auth(newUser.username, newUser.password)
+            .end((err, res) => {
+              if (err) throw err;
+
+              let newShip = {
+                ftl: true,
+                stl: true
+              };
+
+              token = res.body.token;
+
+              superagent
+                .post(SERVER_URL + '/api/ships')
+                .set('Content-Type', 'application/json')
+                .set('Authorization', 'Bearer ' + token)
+                .send(JSON.stringify(newShip))
+                .end((err, res) => {
+                  if (err) throw err;
+
+                  let shipId = res.body._id;
+
+                  superagent
+                    .get(SERVER_URL + '/api/ship/' + shipId)
+                    .set('Authorization', 'Bearer ' + token)
+                    .end((err, res) => {
+                      if (err) console.log(err.message);
+                      expect(res.status).toBe(200);
+                      done();
+                    });
+                });
+            });
+        });
+    });
+
+    test('sends 200 for a put request with a valid authorization and body', done => {
+      let newUser = getUserParams();
+      let userId;
+      let token;
+
+      superagent
+        .post(SERVER_URL + '/api/users')
+        .set('Content-Type', 'application/json')
+        .auth(newUser.username, newUser.password)
+        .send(JSON.stringify(newUser))
+        .end((err, res) => {
+          if (err) throw err;
+
+          userId = res.body._id;
+
+          superagent
+            .get(SERVER_URL + '/api/signin')
+            .set('Content-Type', 'application/json')
+            .auth(newUser.username, newUser.password)
+            .end((err, res) => {
+              if (err) throw err;
+
+              let newShip = {
+                ftl: true,
+                stl: true
+              };
+
+              token = res.body.token;
+
+              superagent
+                .post(SERVER_URL + '/api/ships')
+                .set('Content-Type', 'application/json')
+                .set('Authorization', 'Bearer ' + token)
+                .send(JSON.stringify(newShip))
+                .end((err, res) => {
+                  if (err) throw err;
+
+                  let shipId = res.body._id;
+                  let updatedship = {
+                    ftl: true,
+                    stl: true
+                  }
+
+                  superagent
+                    .put(SERVER_URL + '/api/ship/' + shipId)
+                    .set('Content-Type', 'application/json')
+                    .set('Authorization', 'Bearer ' + token)
+                    .send(updatedship)
+                    .end((err, res) => {
+                      if (err) console.log(err);
+                      expect(res.status).toBe(200);
+                      done();
+                    });
+                });
+            });
+        });
+    });
+
+    test('sends 200 for a delete request with a valid authorization and body', done => {
+      let newUser = getUserParams();
+      let userId;
+      let token;
+
+      superagent
+        .post(SERVER_URL + '/api/users')
+        .set('Content-Type', 'application/json')
+        .auth(newUser.username, newUser.password)
+        .send(JSON.stringify(newUser))
+        .end((err, res) => {
+          if (err) throw err;
+
+          userId = res.body._id;
+
+          superagent
+            .get(SERVER_URL + '/api/signin')
+            .set('Content-Type', 'application/json')
+            .auth(newUser.username, newUser.password)
+            .end((err, res) => {
+              if (err) throw err;
+
+              let newShip = {
+                ftl: true,
+                stl: true
+              };
+
+              token = res.body.token;
+
+              superagent
+                .post(SERVER_URL + '/api/ships')
+                .set('Content-Type', 'application/json')
+                .set('Authorization', 'Bearer ' + token)
+                .send(JSON.stringify(newShip))
+                .end((err, res) => {
+                  if (err) throw err;
+
+                  let shipId = res.body._id;
+
+                  superagent
+                    .delete(SERVER_URL + '/api/ship/' + shipId)
+                    .set('Content-Type', 'application/json')
+                    .set('Authorization', 'Bearer ' + token)
+                    .end((err, res) => {
+                      if (err) console.log(err);
+                      expect(res.status).toBe(200);
+                      done();
+                    });
+                });
+            });
+        });
+    });
+
     test('sends 200 for a post request with a valid authorization and body', done => {
       let newUser = getUserParams();
       let userId;

@@ -28,7 +28,7 @@ router.route('/engines')
 
 router.route('/engine/:_id')
   .get(bearerMiddleware, (req, res) => {
-    Engine.findOneById(req.params._id)
+    Engine.findById(req.params._id)
       .then(engine => res.json(engine))
       .catch(err => res.send(err.message));
   })
