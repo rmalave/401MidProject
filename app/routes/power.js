@@ -17,7 +17,7 @@ router.route('/power')
       .then(power => {
         Ship.findByIdAndUpdate(
           power.ship,
-          { $push: { engine: power._id }},
+          { $push: { power: power._id }},
           { new: true })
           .catch(err => res.send(err.message));
 
