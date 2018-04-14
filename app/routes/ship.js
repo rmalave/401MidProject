@@ -13,12 +13,12 @@ router.route('/ships')
       .populate('power')
       .populate('supply')
       .then(ships => res.json(ships))
-      .catch(err => res.send(err.message));
+      .catch(err => res.send(err));
   })
   .post(bearerMiddleware, (req, res) => {
     Ship.create(req.body)
       .then(ship => res.json(ship))
-      .catch(err => res.send(err.message));
+      .catch(err => res.send(err));
   });
 
 router.route('/ship/:_id')
@@ -27,7 +27,7 @@ router.route('/ship/:_id')
       .populate('crew')
       .populate('engine')
       .then(ship => res.json(ship))
-      .catch(err => res.send(err.message));
+      .catch(err => res.send(err));
   })
   .put(bearerMiddleware, (req, res) => {
     Ship.findByIdAndUpdate(req.params._id, req.body, { new: true })
@@ -35,12 +35,12 @@ router.route('/ship/:_id')
         success: true,
         data: ship
       }))
-      .catch(err => res.send(err.message));
+      .catch(err => res.send(err));
   })
   .delete(bearerMiddleware, (req, res) => {
     Ship.findByIdAndRemove(req.params._id)
       .then(ship => res.json({ success: true, message: 'Ship successfuly deleted.'}))
-      .catch(err => res.send(err.message));
+      .catch(err => res.send(err));
   });
 
 module.exports = router;
