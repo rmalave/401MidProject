@@ -10,6 +10,7 @@ const userRouter = require('./app/routes/user');
 const crewRouter = require('./app/routes/crew');
 const engineRouter = require('./app/routes/engine');
 const supplyRouter = require('./app/routes/supply');
+const powerRouter = require('./app/routes/power');
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use('/api', userRouter);
 app.use('/api', crewRouter);
 app.use('/api', engineRouter);
 app.use('/api', supplyRouter);
+app.use('/api', powerRouter);
 
 const PORT = process.env.PORT;
 

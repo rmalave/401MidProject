@@ -28,7 +28,7 @@ router.route('/power')
 
 router.route('/power/:_id')
   .get(bearerMiddleware, (req, res) => {
-    Power.findOneById(req.params._id)
+    Power.findById(req.params._id)
       .then(power => res.json(power))
       .catch(err => res.send(err.message));
   })

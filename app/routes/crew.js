@@ -28,9 +28,9 @@ router.route('/crew')
 
 router.route('/crew/:_id')
   .get(bearerMiddleware, (req, res) => {
-    Crew.findOneById(req.params._id)
+    Crew.findById(req.params._id)
       .then(crew => res.json(crew))
-      .catch(err => err.send(err.message));
+      .catch(err => res.send(err.message));
   })
   .put(bearerMiddleware, (req, res) => {
     Crew.findByIdAndUpdate(req.params._id, req.body, { new: true })
