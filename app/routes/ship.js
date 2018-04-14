@@ -10,6 +10,8 @@ router.route('/ships')
     Ship.find()
       .populate('crew')
       .populate('engine')
+      .populate('power')
+      .populate('supply')
       .then(ships => res.json(ships))
       .catch(err => res.send(err.message));
   })
