@@ -18,7 +18,7 @@ router.route('/users')
       .then(user => {
         res.json(user);
       })
-      .catch(err => res.status(400).send(err.message));
+      .catch(err => res.status(400).send(err));
   });
 
 router.route('/signin')

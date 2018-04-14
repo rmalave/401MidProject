@@ -305,7 +305,7 @@ describe('Test engine routes', () => {
             });
         });
     });
-    
+
     test('sends 200 for a post request with a valid authorization and body', done => {
       let newUser = getUserParams();
       let userId;
