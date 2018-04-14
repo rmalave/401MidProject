@@ -7,7 +7,7 @@ const shipSchema = new mongoose.Schema({
   crew: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Crew' }],
   engine: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Engine' }],
   supply: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Supply' }],
-  power: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Supply' }]
+  power: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Power' }]
 });
 
 module.exports = mongoose.model('Ship', shipSchema);
