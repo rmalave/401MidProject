@@ -438,6 +438,43 @@ Example response body:
 }
 ```
 
+**ERRORS**
+
+```
+{
+    "errors": {
+        "password": {
+            "message": "Path `password` is required.",
+            "name": "ValidatorError",
+            "properties": {
+                "message": "Path `{PATH}` is required.",
+                "type": "required",
+                "path": "password"
+            },
+            "kind": "required",
+            "path": "password",
+            "$isValidatorError": true
+        },
+        "username": {
+            "message": "Path `username` is required.",
+            "name": "ValidatorError",
+            "properties": {
+                "message": "Path `{PATH}` is required.",
+                "type": "required",
+                "path": "username"
+            },
+            "kind": "required",
+            "path": "username",
+            "$isValidatorError": true
+        }
+    },
+    "_message": "User validation failed",
+    "message": "User validation failed: password: Path `password` is required., username: Path `username` is required.",
+    "name": "ValidationError"
+}
+
+```
+
 ## TECHNOLOGIES
 
 - Nodejs
